@@ -8,7 +8,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Spring Boot application...
-      - mvn clean install # This assumes you're using Maven wrapper (mvnw)
+      - mvn clean package # This assumes you're using Maven wrapper (mvnw)
       - echo Build completed on `date`
 
   post_build:
