@@ -12,5 +12,5 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - target/output.jar
+    - target/javaapp.jar
 
