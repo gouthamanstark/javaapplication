@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto21
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Spring Boot application...
+      - ./mvnw clean package # This assumes you're using Maven wrapper (mvnw)
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - target/output.jar
