@@ -10,7 +10,13 @@ phases:
       - echo Building the Spring Boot application...
       - mvn clean package # This assumes you're using Maven wrapper (mvnw)
       - echo Build completed on `date`
+
+  post_build:
+        commands:
+          - echo post_build
+          - mv target/*.jar javaapp.jar
+
 artifacts:
   files:
-    - target/javaapp.jar
+    - javaapp.jar
 
