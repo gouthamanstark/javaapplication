@@ -8,6 +8,7 @@ public class HomeController {
 
     @GetMapping("/home")
     public String getInfo() {
+        System.out.prinlnt("This works");
         return "index";
     }
 
