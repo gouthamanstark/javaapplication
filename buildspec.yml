@@ -22,7 +22,7 @@ phases:
 
   post_build:
     commands:
-      - echo "Post-build phase: Running OWASP ZAP container..."
+      - echo "Running OWASP ZAP container..."
       - docker pull owasp/zap2docker-stable
       - echo "Starting ZAP scan against the application..."
       - docker run --rm -v $(pwd):/zap/wrk:rw owasp/zap2docker-stable zap-full-scan.py \
