@@ -22,6 +22,11 @@ phases:
 
   post_build:
     commands:
+      - echo Installing Docker...
+      - yum update -y
+      - yum install -y docker
+      - service docker start
+      - usermod -a -G docker $USER
       - echo "Running OWASP ZAP container..."
       - docker pull owasp/zap2docker-stable
       - echo "Starting ZAP scan against the application..."
