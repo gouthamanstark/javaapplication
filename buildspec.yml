@@ -22,8 +22,6 @@ phases:
           - echo Checking application status...
           - curl -f http://localhost:8080/home || echo "Application is not running"
 artifacts:
-
-artifacts:
   files:
     - javaapp.jar
 
