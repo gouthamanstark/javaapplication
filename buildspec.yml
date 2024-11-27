@@ -18,7 +18,7 @@ phases:
       - sleep 10 # Allow the application to start
       - echo "Checking if the application is running..."
       - curl -f http://localhost:5000 || { echo "Application failed to start"; exit 1; }
-      -echo ls -a
+      - echo ls -a
 
   post_build:
     commands:
