@@ -23,12 +23,11 @@ phases:
   post_build:
     commands:
       
-      - echo "Running OWASP ZAP container..."
-      - docker pull ghcr.io/zaproxy/zaproxy:stable
+      - echo "Running OWASP ZAP container...
       - docker pull zaproxy/zap-stable
       - docker image ls 
       - echo "Starting ZAP scan against the application..."
-      - docker run --rm -v $(pwd):/zap/wrk:rw owasp/zap-stable zap-full-scan.py \
+      - docker run --rm -v $(pwd):/zap/wrk:rw zaproxy/zap-stable zap-full-scan.py \
           -t http://localhost:5000 \
           -g zap-context.context \
           -r zap_report.html
