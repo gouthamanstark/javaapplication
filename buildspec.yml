@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      
+      yum install -y net-tools
       java: corretto21
   build:
     commands:
