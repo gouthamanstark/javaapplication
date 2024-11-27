@@ -26,6 +26,7 @@ phases:
       - docker pull zaproxy/zap-stable
       - docker image ls 
       - echo "Starting ZAP scan against the application..."
+      - docker run -t zaproxy/zaproxy:stable zap-full-scan.py -t http://localhost:5000
       - docker run --rm -v $(pwd):/zap/wrk:rw zaproxy/zap-stable zap-full-scan.py \
           -t http://localhost:5000 \
           -g zap-context.context \
