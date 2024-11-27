@@ -3,26 +3,38 @@ version: 0.2
 phases:
   install:
     runtime-versions:
+      docker: 20
       java: corretto21
   build:
     commands:
-      - echo Build started on `date`
-      - echo Building the Spring Boot application...
-      - mvn clean install # This assumes you're using Maven wrapper (mvnw)
-      - echo Starting the Spring Boot application...
-      
+      - echo "Build started on `date`"
+      - echo "Building the Spring Boot application..."
+      - mvn clean install
+      - mv target/*.jar javaapp.jar
+      - echo "Build completed on `date`"
+      - echo "Starting the application..."
+      - nohup java -jar javaapp.jar > app.log 2>&1 &
+      - echo $! > app.pid
+      - sleep 10 # Allow the application to start
+      - echo "Checking if the application is running..."
+      - curl -f http://localhost:5000 || { echo "Application failed to start"; exit 1; }
+      -echo ls -a
 
   post_build:
-        commands:
-          - echo post_build
-          - mv target/*.jar javaapp.jar
-          - nohup java -jar javaapp.jar &
-          - echo Build completed on `date`
-          - sleep 10 # Wait a few seconds for the application to start
-          - echo Checking application status...
-          - curl -f http://localhost:5000/home || echo "Application is not running"
-          - echo "Application stopped"
+    commands:
+      - echo "Post-build phase: Running OWASP ZAP container..."
+      - docker pull owasp/zap2docker-stable
+      - echo "Starting ZAP scan against the application..."
+      - docker run --rm -v $(pwd):/zap/wrk:rw owasp/zap2docker-stable zap-full-scan.py \
+          -t http://localhost:5000 \
+          -g zap-context.context \
+          -r zap_report.html
+      - echo "OWASP ZAP scan completed."
+      - echo "Stopping the application..."
+      - kill -9 $(cat app.pid) || echo "Application already stopped"
+
 artifacts:
   files:
     - javaapp.jar
-
+    - app.log
+    - zap_report.html
