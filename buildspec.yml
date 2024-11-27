@@ -27,7 +27,6 @@ phases:
       - docker image ls 
       - curl -f http://localhost:5000 || { echo "Application failed to start"; exit 1; }
       - echo "Starting ZAP scan against the application..."
-      - netstat -tulpn
       - docker run -t zaproxy/zap-stable zap-full-scan.py -t http://localhost:5000
       - echo "OWASP ZAP scan completed."
       - echo netstat -tulpn
