@@ -26,8 +26,10 @@ phases:
       - docker pull zaproxy/zap-stable
       - docker image ls 
       - echo "Starting ZAP scan against the application..."
+      - echo netstat -tulpn
       - docker run -t zaproxy/zap-stable zap-full-scan.py -t http://localhost:5000
       - echo "OWASP ZAP scan completed."
+      - echo netstat -tulpn
       - echo "Stopping the application..."
       - kill -9 $(cat app.pid) || echo "Application already stopped"
 
