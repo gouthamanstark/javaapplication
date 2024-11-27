@@ -24,7 +24,7 @@ phases:
   post_build:
     commands:
       - echo "Running OWASP ZAP container..."
-      - docker pull zaproxy/zap-stable
+     # - docker pull zaproxy/zap-stable
       - echo "Listing Docker images to confirm ZAP container is available..."
       - docker image ls
       - echo "Starting ZAP scan against the application..."
