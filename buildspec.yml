@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      yum install -y net-tools
+     
       java: corretto21
   build:
     commands:
@@ -25,6 +25,7 @@ phases:
       - echo "Running OWASP ZAP container..."
       - docker pull zaproxy/zap-stable
       - docker image ls 
+      - curl -f http://localhost:5000 || { echo "Application failed to start"; exit 1; }
       - echo "Starting ZAP scan against the application..."
       - netstat -tulpn
       - docker run -t zaproxy/zap-stable zap-full-scan.py -t http://localhost:5000
