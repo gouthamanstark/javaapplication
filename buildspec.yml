@@ -22,7 +22,6 @@ phases:
 
   post_build:
     commands:
-      
       - echo "Running OWASP ZAP container...
       - docker pull zaproxy/zap-stable
       - docker image ls 
