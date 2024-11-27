@@ -18,6 +18,10 @@ phases:
           - mv target/*.jar javaapp.jar
           - nohup java -jar javaapp.jar &
           - echo Build completed on `date`
+          - sleep 10 # Wait a few seconds for the application to start
+          - echo Checking application status...
+          - curl -f http://localhost:8080/home || echo "Application is not running"
+artifacts:
 
 artifacts:
   files:
