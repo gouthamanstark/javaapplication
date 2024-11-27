@@ -24,7 +24,8 @@ phases:
     commands:
       
       - echo "Running OWASP ZAP container..."
-      - docker pull owasp/zap2docker-stable
+      - docker pull ghcr.io/zaproxy/zaproxy:stable
+      - docker pull zaproxy/zap-stable
       - echo "Starting ZAP scan against the application..."
       - docker run --rm -v $(pwd):/zap/wrk:rw owasp/zap2docker-stable zap-full-scan.py \
           -t http://localhost:5000 \
