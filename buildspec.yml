@@ -20,7 +20,7 @@ phases:
           - echo Build completed on `date`
           - sleep 10 # Wait a few seconds for the application to start
           - echo Checking application status...
-          - curl -f http://localhost:8080/home || echo "Application is not running"
+          - curl -f http://localhost:5000/home || echo "Application is not running"
 artifacts:
   files:
     - javaapp.jar
