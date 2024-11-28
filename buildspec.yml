@@ -9,6 +9,11 @@ phases:
     commands:
       - echo "Build started on `date`"
       - echo "Building the Spring Boot application..."
+      - mvn clean verify sonar:sonar \
+  -Dsonar.projectKey=testproject \
+  -Dsonar.projectName='testproject' \
+  -Dsonar.host.url=https://aware-unlikely-emu.ngrok-free.app \
+  -Dsonar.token=sqp_1a8b3293857847c8c1bddca6b5d69279935c12b4
       - mvn clean install
       - echo "Copying the built JAR to the project directory..."
       - cp target/*.jar javaapp.jar
