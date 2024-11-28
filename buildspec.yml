@@ -26,12 +26,13 @@ phases:
     commands:
       - echo "Running OWASP ZAP container..."
       # Uncomment if you need to pull the ZAP Docker image
-      # - docker pull zaproxy/zap-stable
+      - docker pull zaproxy/zap-stable
       - echo "Listing Docker images to confirm ZAP container is available..."
       - docker image ls
       - echo "Starting ZAP scan against the application..."
+      - chmod 777 $(pwd)
       # Uncomment if you need to run the ZAP scan
-      # - sudo docker run -v $(pwd):/zap/wrk/:rw --network="host" zaproxy/zap-stable zap-baseline.py -t http://localhost:5000 -r zap_report.html || { echo "OWASP ZAP scan failed"; exit 0; }
+      - sudo docker run -v $(pwd):/zap/wrk/:rw --network="host" zaproxy/zap-stable zap-baseline.py -t http://localhost:5000 -r zap_report.html || { echo "OWASP ZAP scan failed"; exit 0; }
       - echo "OWASP ZAP scan completed."
       - echo "Stopping the application..."
       - kill -9 $(cat app.pid) || echo "Application already stopped"
