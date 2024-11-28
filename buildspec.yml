@@ -10,10 +10,10 @@ phases:
       - echo "Build started on `date`"
       - echo "Building the Spring Boot application..."
       - mvn clean verify sonar:sonar \
-  -Dsonar.projectKey=testproject \
-  -Dsonar.projectName='testproject' \
-  -Dsonar.host.url=https://aware-unlikely-emu.ngrok-free.app \
-  -Dsonar.token=sqp_1a8b3293857847c8c1bddca6b5d69279935c12b4
+          -Dsonar.projectKey=testproject \
+          -Dsonar.projectName='testproject' \
+          -Dsonar.host.url=https://aware-unlikely-emu.ngrok-free.app \
+          -Dsonar.token=sqp_1a8b3293857847c8c1bddca6b5d69279935c12b4
       - mvn clean install
       - echo "Copying the built JAR to the project directory..."
       - cp target/*.jar javaapp.jar
@@ -29,12 +29,13 @@ phases:
   post_build:
     commands:
       - echo "Running OWASP ZAP container..."
-     # - docker pull zaproxy/zap-stable
+      # Uncomment if you need to pull the ZAP Docker image
+      # - docker pull zaproxy/zap-stable
       - echo "Listing Docker images to confirm ZAP container is available..."
       - docker image ls
       - echo "Starting ZAP scan against the application..."
-      - chmod -R 777 $(pwd)
-      #- sudo docker run -v $(pwd):/zap/wrk/:rw --network="host" zaproxy/zap-stable zap-baseline.py -t http://localhost:5000 -r zap_report.html || { echo "OWASP ZAP scan failed"; exit 0; }
+      # Uncomment if you need to run the ZAP scan
+      # - sudo docker run -v $(pwd):/zap/wrk/:rw --network="host" zaproxy/zap-stable zap-baseline.py -t http://localhost:5000 -r zap_report.html || { echo "OWASP ZAP scan failed"; exit 0; }
       - echo "OWASP ZAP scan completed."
       - echo "Stopping the application..."
       - kill -9 $(cat app.pid) || echo "Application already stopped"
